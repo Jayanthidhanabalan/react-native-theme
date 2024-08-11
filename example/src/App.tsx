@@ -1,31 +1,18 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-theme';
+import { SafeAreaView, Text, Button } from 'react-native';
+import { ThemeContext } from 'react-native-theme';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
+const App = () => {
+  const { theme, changeTheme } = useContext(ThemeContext);
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <SafeAreaView>
+      <Text style={{ backgroundColor: theme.primary, color: theme.secondary }}>
+        {theme.primary}
+      </Text>
+      <Button onPress={() => changeTheme('LIGHT')} title="Toggle Theme" />
+    </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
+};
+export default App;
